@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         SetScore(score + points);
     }
 
-    private void SetScore(int score)
+    public void SetScore(int score)
     {
         this.score = score;
         scoreText.text = score.ToString();
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SaveHiScore()
+    public void SaveHiScore()
     {
         GameData data = new GameData
         {
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int LoadHiScore()
+    public int LoadHiScore()
     {
         string path = Path.Combine(Application.persistentDataPath, "save.dat");
         if (File.Exists(path))
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
-    private void SaveGame()
+    public void SaveGame()
     {
         GameData data = new GameData
         {
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void LoadGame()
+    public void LoadGame()
     {
         string path = Path.Combine(Application.persistentDataPath, "save.dat");
         if (File.Exists(path))

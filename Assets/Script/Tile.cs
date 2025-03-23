@@ -1,3 +1,4 @@
+// Tile.cs
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,31 +14,14 @@ public class Tile : MonoBehaviour
     private Image background;
     private TextMeshProUGUI text;
 
-    /*
-    private void Awake()
-    {
-        background = GetComponent<Image>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
-    }
 
-    public void SetState(TileScript state, int number)
-    {
-        this.state = state;
-        this.number = number;
-
-        background.color = state.backgroundColor;
-        text.color = state.textColor;
-        text.text = number.ToString();
-
-    }
-*/
     private Color startColor = Color.grey;
     private Color endColor = Color.red;
 
     private void Awake()
     {
-        background = GetComponent<Image>();
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        background = GetComponent<Image>(); // Get the Image component
+        text = GetComponentInChildren<TextMeshProUGUI>(); // Get the TextMeshPro component
     }
 
     public void SetState(TileScript state, int number)
@@ -45,12 +29,14 @@ public class Tile : MonoBehaviour
         this.state = state;
         this.number = number;
         float t = Mathf.Clamp01((Mathf.Log(number, 2) - 1) / 10);
-        background.color = Color.Lerp(startColor, endColor, t);
+
+         // THIS WAS THE LINE CAUSING THE PROBLEM:
+        background.color = Color.Lerp(startColor, endColor, t); // Line 48
         text.text = number.ToString();
     }
-    public void Spawn(TileCell cell) 
+    public void Spawn(TileCell cell)
     {
-        if (this.cell != null) 
+        if (this.cell != null)
         {
             this.cell.tile = null;
         }
@@ -61,7 +47,7 @@ public class Tile : MonoBehaviour
         transform.position = cell.transform.position;
     }
 
-    public void MoveTo(TileCell cell) 
+    public void MoveTo(TileCell cell)
     {
         if (this.cell != null)
         {
@@ -74,7 +60,7 @@ public class Tile : MonoBehaviour
         StartCoroutine(Animate(cell.transform.position, false));
     }
 
-    public void Merge(TileCell cell) 
+    public void Merge(TileCell cell)
     {
         if (this.cell != null)
         {
@@ -94,7 +80,7 @@ public class Tile : MonoBehaviour
 
         Vector3 from = transform.position;
 
-        while (elapsed < duration) 
+        while (elapsed < duration)
         {
             transform.position = Vector3.Lerp(from, to, elapsed / duration);
             elapsed += Time.deltaTime;
@@ -103,8 +89,9 @@ public class Tile : MonoBehaviour
 
         transform.position = to;
 
-        if (merging) {
-            Destroy(gameObject);
+        if (merging)
+        {
+            Object.DestroyImmediate(gameObject);
         }
     }
 

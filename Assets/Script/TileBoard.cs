@@ -200,7 +200,7 @@ public class TileBoard : MonoBehaviour
     
     }
 
-    private bool CheckForGameOver() {
+    public bool CheckForGameOver() {
         if (tiles.Count != grid.size) {
             return false;
         }
